@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>TS WebGL rotating coloured square</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+        attribute vec4 aVertexColor;
+
+        uniform mat4 mVMatrix;
+        uniform mat4 pMatrix;
+
+        varying lowp vec4 vColor;
+
+        void main(void) {
+        gl_Position = pMatrix * mVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = aVertexColor;
+        }
+    </script>
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+        varying lowp vec4 vColor;
+
+        void main(void) {
+        gl_FragColor = vColor;
+        }
+    </script>
+    <script src="out/gl-matrix.js"></script>
+    <script src="out/app.js"></script>
+</head>
+<body>
+    <canvas id="CanvasGL" style="border: none;" width="500" height="500"></canvas>
+</body>
+</html>
