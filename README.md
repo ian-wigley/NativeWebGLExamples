@@ -26,3 +26,7 @@ More detail & running examples can be found @ http://ianwigley.co.uk/index1.html
 #Sample6
 
 ![](Screenshots/sample6.jpg)
+
+#Sample7
+
+![](Screenshots/sample7.jpg)
