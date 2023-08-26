@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "type": "pwa-msedge",
+        "type": "msedge",
+        "name": "Edge",
         "request": "launch",
-        "name": "Launch Edge against localhost",
-        "url": "${workspaceFolder}/index.html",
+        "url": "http://localhost:8000/index.html",
         "webRoot": "${workspaceFolder}",
         "preLaunchTask": "tsc: build - tsconfig.json",
         "outFiles": ["${workspaceFolder}/out/**/*.js"]
