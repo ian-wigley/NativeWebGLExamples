@@ -1,5 +1,5 @@
-﻿declare var mat4: any;
-declare var vec3: any;
+﻿declare let mat4: any;
+declare let vec3: any;
 
 import Camera = require("./Camera");
 import Cube = require("./Cube");
