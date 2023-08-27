@@ -1,10 +1,12 @@
 {
     "compilerOptions": {
-      "target": "es6",
-      "module": "amd",
+      "target": "ESNEXT",
+      "module": "ESNEXT",
       "outDir": "out",
       "sourceMap": true,
       "allowJs": true,
       "checkJs": false,
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true,
     },
   }
