@@ -1,7 +1,7 @@
 ﻿declare var mat4: any;
 declare var vec3: any;
 
-class Cube {
+export class Cube {
 
     private shaderProgram;
     private gl: WebGLRenderingContext;
@@ -130,4 +130,3 @@ class Cube {
         this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
     }
 }
-export = Cube;
