@@ -1,8 +1,8 @@
-﻿declare var mat4: any;
-declare var vec3: any;
-declare var vec2: any;
+﻿declare let mat4: any;
+declare let vec3: any;
+declare let vec2: any;
 
-class Plane {
+export class Plane {
 
     private shaderProgram;
     private gl: WebGLRenderingContext;
@@ -63,7 +63,7 @@ class Plane {
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
-    public Update(x, y, z) {
+    public Update(x: number, y: number, z: number) {
         this.x = 0;
         this.y = 0;
         this.z = z;
@@ -94,5 +94,3 @@ class Plane {
         this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
     }
 }
-
-export = Plane;
