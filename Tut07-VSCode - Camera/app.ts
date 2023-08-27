@@ -1,16 +1,13 @@
-﻿declare let mat4: any;
-declare let vec3: any;
+﻿import { Camera } from "./Camera.js"
+import { Cube } from "./Cube.js";
+import { Plane } from "./Plane.js";
+import { ShaderProgram } from "./ShaderProgram.js";
 
-import Camera = require("./Camera");
-import Cube = require("./Cube");
-import Plane = require("./Plane");
-import ShaderProgram = require("./ShaderProgram");
-
-class App {
+export class App {
 
     private gl: WebGLRenderingContext;
 
-    private shaderProgram;
+    private shaderProgram: any;
     private sp: ShaderProgram;
 
     private camera: Camera;
@@ -18,13 +15,13 @@ class App {
     private plane: Plane;
 
     public Initialise() {
-        var canvas = document.getElementById("CanvasGL");
+        let canvas = document.getElementById("CanvasGL");
         this.InitGL(canvas)
         this.sp = new ShaderProgram(this.gl);
         this.shaderProgram = this.sp.GetShaderProgram();
 
         this.camera = new Camera(this.gl);
-        var pMatrix = this.camera.Initialise();
+        let pMatrix = this.camera.Initialise();
 
         this.plane = new Plane(this.shaderProgram, this.gl, pMatrix);
         this.cube = new Cube(this.shaderProgram, this.gl, pMatrix);
@@ -70,7 +67,7 @@ class App {
     }
 
     private InitGL(canvas) {
-        var names = ["webgl", "experimental-webgl", "webkit-3d", "mozwebgl"];
+        let names = ["webgl", "experimental-webgl", "webkit-3d", "mozwebgl"];
         for (const name of names) {
             try {
                 this.gl = canvas.getContext(name);
@@ -97,4 +94,3 @@ class App {
         this.cube.Draw();
     }
 }
-export = App;
