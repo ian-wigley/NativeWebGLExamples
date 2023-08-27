@@ -1,7 +1,6 @@
-declare var mat4: any;
-declare var vec3: any;
+declare let mat4: any;
 
-class Camera {
+export class Camera {
 
     public x: number = 0;
     public y: number = 0;
@@ -39,5 +38,3 @@ class Camera {
         this.z = 0;
     }
 }
-
-export = Camera;
