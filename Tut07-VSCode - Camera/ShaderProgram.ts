@@ -1,4 +1,4 @@
-﻿class ShaderProgram {
+﻿export class ShaderProgram {
 
     private gl: WebGLRenderingContext;
     private shaderProgram;
@@ -9,8 +9,8 @@
     }
 
     InitShaders() {
-        var fragmentShader = this.GetShader(this.gl, "shader-fs");
-        var vertexShader = this.GetShader(this.gl, "shader-vs");
+        let fragmentShader = this.GetShader(this.gl, "shader-fs");
+        let vertexShader = this.GetShader(this.gl, "shader-vs");
 
         this.shaderProgram = this.gl.createProgram();
         this.gl.attachShader(this.shaderProgram, vertexShader);
@@ -36,13 +36,13 @@
     }
 
     private GetShader(gl, id) {
-        var shaderScript = (<HTMLInputElement>document.getElementById(id));
+        let shaderScript = (<HTMLInputElement>document.getElementById(id));
         if (!shaderScript) {
             return null;
         }
 
-        var str = "";
-        var k = shaderScript.firstChild;
+        let str = "";
+        let k = shaderScript.firstChild;
         while (k) {
             if (k.nodeType == 3) {
                 str += k.textContent;
@@ -74,4 +74,3 @@
         return this.shaderProgram;
     }
 }
-export = ShaderProgram;
