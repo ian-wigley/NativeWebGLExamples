@@ -31,7 +31,13 @@
         }
     </script>
     <script src="out/gl-matrix.js"></script>
-    <script data-main="out/main.js" src="out/require.js"></script>
+
+    <script type="module">
+        import { App } from "/out/app.js"
+        let application = new App();
+        application.Initialise();
+        application.Run();
+    </script>
 </head>
 
 <body>
