@@ -1,4 +1,4 @@
-declare let mat4: any;
+import * as mat4 from "./mat4.js"
 
 export class Camera {
 
