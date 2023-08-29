@@ -1,6 +1,5 @@
-﻿declare let mat4: any;
-declare let vec3: any;
-declare let vec2: any;
+﻿import * as mat4 from "./glmatrix/mat4.js"
+import * as vec3 from "./glmatrix/vec3.js"
 
 export class Plane {
 
