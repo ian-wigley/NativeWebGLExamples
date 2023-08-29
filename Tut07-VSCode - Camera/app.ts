@@ -46,30 +46,26 @@ export class App {
         this.onKeyboardPress(event);
     }
 
-    private onKeyboardPress(event: Event) {
-        switch (<number>(<KeyboardEvent>event).keyCode | 0) {
-            case 17:
+    private onKeyboardPress(event: KeyboardEvent) {
+        switch (event.code) {
+            case "ArrowLeft":
                 break;
-            case 37:
-                break;
-            case 38:
+            case "ArrowUp":
                 this.camera.MoveForward(0.1);
                 break;
-            case 39:
+            case "ArrowRight":
                 break;
-            case 40:
+            case "ArrowDown":
                 this.camera.MoveForward(-0.1);
-                break;
-            case 83:
                 break;
         }
     }
 
-    private InitGL(canvas) {
+    private InitGL(canvas: HTMLElement) {
         let names = ["webgl", "experimental-webgl", "webkit-3d", "mozwebgl"];
         for (const name of names) {
             try {
-                this.gl = canvas.getContext(name);
+                this.gl = <WebGLRenderingContext>(canvas as HTMLCanvasElement).getContext(name);
             } catch (e) { }
             if (this.gl) {
                 break;
