@@ -50,7 +50,7 @@
             k = k.nextSibling;
         }
 
-        var shader;
+        let shader: any;
         if (shaderScript.type == "x-shader/x-fragment") {
             shader = gl.createShader(gl.FRAGMENT_SHADER);
         } else if (shaderScript.type == "x-shader/x-vertex") {
