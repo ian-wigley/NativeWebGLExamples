@@ -1,5 +1,5 @@
-﻿declare var mat4: any;
-declare var vec3: any;
+﻿import * as mat4 from "./glmatrix/mat4.js"
+import * as vec3 from "./glmatrix/vec3.js"
 
 export class Cube {
 
