@@ -1,4 +1,4 @@
-import * as mat4 from "./mat4.js"
+import * as mat4 from "./glmatrix/mat4.js"
 
 export class Camera {
 
