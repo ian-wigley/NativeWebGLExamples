@@ -18,7 +18,7 @@ export class Camera {
         this.gl = gl;
     }
 
-    public Initialise(): void {
+    public Initialise(): object {
         this.aspect = this.gl.drawingBufferWidth / this.gl.drawingBufferHeight;
         mat4.perspective(this.pMatrix,
             this.fieldOfView,
