@@ -6,7 +6,7 @@ import { ShaderProgram } from "./ShaderProgram.js";
 export class App {
 
     private gl: WebGLRenderingContext;
-    private shaderProgram: any;
+    private shaderProgram: object;
     private sp: ShaderProgram;
 
     private camera: Camera;
