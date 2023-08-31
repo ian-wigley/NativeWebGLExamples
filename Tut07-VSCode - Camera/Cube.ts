@@ -80,10 +80,10 @@ export class Cube {
             [0.0, 0.0, 1.0, 1.0],     // Left face
         ];
 
-        var unpackedColors = [];
-        for (var i in this.colors) {
-            var color = this.colors[i];
-            for (var j = 0; j < 4; j++) {
+        let unpackedColors = [];
+        for (let i in this.colors) {
+            let color = this.colors[i];
+            for (let j = 0; j < 4; j++) {
                 unpackedColors = unpackedColors.concat(color);
             }
         }
