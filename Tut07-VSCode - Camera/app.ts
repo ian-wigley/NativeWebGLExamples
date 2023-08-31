@@ -78,6 +78,7 @@ export class App {
     }
 
     private Update() {
+        // this.plane.Update(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
         this.plane.Update(0, 0, this.camera.z);
         this.camera.Update();
         this.DrawScene();
