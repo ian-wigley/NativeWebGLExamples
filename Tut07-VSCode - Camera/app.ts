@@ -78,7 +78,6 @@ export class App {
     }
 
     private Update() {
-        // this.plane.Update(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
         this.plane.Update(0, 0, this.camera.z);
         this.camera.Update();
         this.DrawScene();
@@ -86,7 +85,7 @@ export class App {
 
     private DrawScene() {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        this.plane.Draw();
+        this.plane.Draw(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
         this.cube.Draw();
     }
 }
