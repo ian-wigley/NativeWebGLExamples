@@ -37,7 +37,7 @@ export class Camera {
     public MoveForward(value: number): void {
         this.z = value;
         let velocity = this.movement_speed * value
-        this.position.z += velocity;
+        this.position[2] += velocity;
     }
 
     public Update(): void {
@@ -48,7 +48,12 @@ export class Camera {
 
     public get_view_matrix(): object {
         let viewMatrix = mat4.create();
-        return mat4.lookAt(viewMatrix, this.position, this.position + this.front, this.world_up);
+        let vectorial = vec3.fromValues(
+            this.position[0] + this.front[0],
+            this.position[1] + this.front[1],
+            this.position[2] + this.front[2],
+        )
+        return mat4.lookAt(viewMatrix, this.position, vectorial, this.world_up);
     }
 
     public get_projection_matrix(): object {
