@@ -65,10 +65,14 @@ export class Plane {
     public Update(x: number, y: number, z: number) {
         this.x = 0;
         this.y = 0;
-        this.z = z;
+        this.z = 0;//z;
     }
 
-    public Draw() {
+    public Draw(projection_matrix: object, view_matrix: object) {
+
+        this.pMatrix = projection_matrix;
+        this.mvMatrix = view_matrix;
+
         mat4.translate(this.mvMatrix, this.mvMatrix, [this.x, this.y, this.z]);
         mat4.rotate(this.mvMatrix, this.mvMatrix, 0.01, vec3.fromValues(1, 0, 0));
 
