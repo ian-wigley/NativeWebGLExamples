@@ -59,5 +59,4 @@ export class Camera {
     public get_projection_matrix(): object {
         return this.projectionMatrix;
     }
-
 }
