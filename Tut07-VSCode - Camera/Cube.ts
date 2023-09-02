@@ -25,7 +25,7 @@ export class Cube {
         mat4.translate(this.mvMatrix, this.mvMatrix, vec3.fromValues(-1.0, 0, -7.0))
     }
 
-    private InitBuffers() {
+    private InitBuffers(): void {
         this.vertexPositionBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.vertices = [
@@ -107,8 +107,12 @@ export class Cube {
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
-    public Draw() {
-        mat4.rotate(this.mvMatrix, this.mvMatrix, 0.01, vec3.fromValues(0, 1, 0));
+    public Draw(projection_matrix: object, view_matrix: object): void {
+
+        this.pMatrix = projection_matrix;
+        this.mvMatrix = view_matrix;
+
+        mat4.rotate(this.mvMatrix, view_matrix, 0.01, vec3.fromValues(0, 1, 0));
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, this.gl.FLOAT,
@@ -119,13 +123,11 @@ export class Cube {
             false, 0, 0);
 
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
-
         this.SetMatrixUniforms();
-
         this.gl.drawElements(this.gl.TRIANGLES, this.indices.length, this.gl.UNSIGNED_SHORT, 0);
     }
 
-    private SetMatrixUniforms() {
+    private SetMatrixUniforms(): void {
         this.gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
         this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
     }
