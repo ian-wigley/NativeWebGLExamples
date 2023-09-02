@@ -13,7 +13,7 @@ export class App {
     private cube: Cube;
     private plane: Plane;
 
-    public Initialise() {
+    public Initialise(): void {
         let canvas = document.getElementById("CanvasGL");
         this.InitGL(canvas)
         this.sp = new ShaderProgram(this.gl);
@@ -29,24 +29,24 @@ export class App {
         this.gl.enable(this.gl.DEPTH_TEST);
     }
 
-    public Run() {
+    public Run(): void {
         this.AddHitListener(document.getElementById("CanvasGL"));
         setInterval(() => this.Update(), 10);
     }
 
-    private AddHitListener(element: HTMLElement) {
+    private AddHitListener(element: HTMLElement): void {
         window.addEventListener("keydown", (event) => {
             this.onKeyPress(event);
             return null;
         });
     }
 
-    private onKeyPress(event: KeyboardEvent) {
+    private onKeyPress(event: KeyboardEvent): void {
         event.preventDefault();
         this.onKeyboardPress(event);
     }
 
-    private onKeyboardPress(event: KeyboardEvent) {
+    private onKeyboardPress(event: KeyboardEvent): void {
         switch (event.code) {
             case "ArrowLeft":
                 break;
@@ -77,15 +77,15 @@ export class App {
         }
     }
 
-    private Update() {
+    private Update(): void {
         this.plane.Update(0, 0, this.camera.z);
         this.camera.Update();
         this.DrawScene();
     }
 
-    private DrawScene() {
+    private DrawScene(): void {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
         this.plane.Draw(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
-        this.cube.Draw();
+        this.cube.Draw(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
     }
 }
