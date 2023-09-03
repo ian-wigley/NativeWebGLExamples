@@ -29,14 +29,14 @@ export class Plane {
         mat4.translate(this.mvMatrix, this.mvMatrix, vec3.fromValues(0, 0, -7.0))
     }
 
-    private InitBuffers() {
+    private InitBuffers(): void {
         this.vertexPositionBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.vertices = [
-            -1.0, -1.0, 0.0,  //v0
-             1.0, -1.0, 0.0,  //v1
-             1.0,  1.0, 0.0,  //v2
-            -1.0,  1.0, 0.0   //v3
+            -1.0, -1.0, 0.0, //v0
+            1.0, -1.0, 0.0,  //v1
+            1.0, 1.0, 0.0,   //v2
+            -1.0, 1.0, 0.0   //v3
         ];
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertices), this.gl.STATIC_DRAW);
         this.vertexPositionBuffer.itemSize = 3;
@@ -62,20 +62,19 @@ export class Plane {
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
-    public Update(x: number, y: number, z: number) {
+    public Update(x: number, y: number, z: number): void {
         this.x = 0;
         this.y = 0;
-        this.z = 0;//z;
+        this.z = 0;
     }
 
-    public Draw(projection_matrix: object, view_matrix: object) {
+    public Draw(projection_matrix: object, view_matrix: object): void {
 
         this.pMatrix = projection_matrix;
         this.mvMatrix = view_matrix;
 
-        mat4.translate(this.mvMatrix, this.mvMatrix, [this.x, this.y, this.z]);
-        mat4.rotate(this.mvMatrix, this.mvMatrix, 0.01, vec3.fromValues(1, 0, 0));
-
+        mat4.translate(this.mvMatrix, view_matrix, [this.x, this.y, this.z]);
+        mat4.rotate(this.mvMatrix, view_matrix, 0.01, vec3.fromValues(1, 0, 0));
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, this.gl.FLOAT,
@@ -86,13 +85,11 @@ export class Plane {
             false, 0, 0);
 
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
-
         this.SetMatrixUniforms();
-
         this.gl.drawElements(this.gl.TRIANGLES, this.indices.length, this.gl.UNSIGNED_SHORT, 0);
     }
 
-    private SetMatrixUniforms() {
+    private SetMatrixUniforms(): void {
         this.gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
         this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
     }
