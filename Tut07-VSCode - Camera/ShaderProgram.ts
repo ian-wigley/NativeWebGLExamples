@@ -8,7 +8,7 @@
         this.InitShaders();
     }
 
-    InitShaders() {
+    InitShaders(): void {
         let fragmentShader = this.GetShader(this.gl, "shader-fs");
         let vertexShader = this.GetShader(this.gl, "shader-vs");
 
