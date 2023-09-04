@@ -5,3 +5,9 @@
 span {
     font-style: italic;
 }
+
+canvas {
+    border: none;
+    width: "800";
+    height: "600";
+}
