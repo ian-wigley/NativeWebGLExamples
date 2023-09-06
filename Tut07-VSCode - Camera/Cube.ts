@@ -1,26 +1,11 @@
-﻿import * as mat4 from "./glmatrix/mat4.js"
+﻿import { BaseModel } from "./BaseModel.js";
+import * as mat4 from "./glmatrix/mat4.js"
 import * as vec3 from "./glmatrix/vec3.js"
 
-export class Cube {
+export class Cube extends BaseModel {
 
-    private shaderProgram;
-    private gl: WebGLRenderingContext;
-
-    private mvMatrix = mat4.create();
-    private pMatrix = mat4.create();
-
-    private vertexPositionBuffer;
-    private vertexColorBuffer;
-    private vertexIndexBuffer;
-
-    private vertices;
-    private indices;
-    private colors;
-
-    constructor(shaderProgram, gl: WebGLRenderingContext, pMatrix) {
-        this.shaderProgram = shaderProgram;
-        this.gl = gl;
-        this.pMatrix = pMatrix;
+    constructor(shaderProgram: object, gl: WebGLRenderingContext, pMatrix: object) {
+        super(shaderProgram, gl, pMatrix);
         this.InitBuffers();
         mat4.translate(this.mvMatrix, this.mvMatrix, vec3.fromValues(-1.0, 0, -7.0))
     }
@@ -109,10 +94,10 @@ export class Cube {
 
     public Draw(projection_matrix: object, view_matrix: object): void {
 
-        this.pMatrix = projection_matrix;
-        this.mvMatrix = view_matrix;
+        // this.pMatrix = projection_matrix;
+        // this.mvMatrix = view_matrix;
 
-        mat4.rotate(this.mvMatrix, view_matrix, 0.01, vec3.fromValues(0, 1, 0));
+        mat4.rotate(this.mvMatrix, this.mvMatrix, 0.01, vec3.fromValues(0, 1, 0));
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, this.gl.FLOAT,
@@ -125,10 +110,5 @@ export class Cube {
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
         this.SetMatrixUniforms();
         this.gl.drawElements(this.gl.TRIANGLES, this.indices.length, this.gl.UNSIGNED_SHORT, 0);
-    }
-
-    private SetMatrixUniforms(): void {
-        this.gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
-        this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
     }
 }
