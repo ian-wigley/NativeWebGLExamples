@@ -7,7 +7,7 @@ export class Cube extends BaseModel {
     constructor(shaderProgram: object, gl: WebGLRenderingContext, pMatrix: object) {
         super(shaderProgram, gl, pMatrix);
         this.InitBuffers();
-        mat4.translate(this.mvMatrix, this.mvMatrix, vec3.fromValues(-1.0, 0, -7.0))
+        mat4.translate(this.modelMatrix, this.modelMatrix, vec3.fromValues(-1.0, 0, -7.0))
     }
 
     private InitBuffers(): void {
@@ -94,10 +94,10 @@ export class Cube extends BaseModel {
 
     public Draw(projection_matrix: object, view_matrix: object): void {
 
-        // this.pMatrix = projection_matrix;
-        // this.mvMatrix = view_matrix;
+        this.projectionMatrix = projection_matrix;
+        this.viewMatrix = view_matrix;
 
-        mat4.rotate(this.mvMatrix, this.mvMatrix, 0.01, vec3.fromValues(0, 1, 0));
+        mat4.rotate(this.modelMatrix, this.modelMatrix, 0.01, vec3.fromValues(0, 1, 0));
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, this.gl.FLOAT,
