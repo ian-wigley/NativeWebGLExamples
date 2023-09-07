@@ -5,8 +5,9 @@ export class BaseModel {
     protected shaderProgram;
     protected gl: WebGLRenderingContext;
 
-    protected mvMatrix = mat4.create();
-    protected pMatrix = mat4.create();
+    protected modelMatrix = mat4.create();
+    protected projectionMatrix = mat4.create();
+    protected viewMatrix = mat4.create();
 
     protected vertexPositionBuffer;
     protected vertexColorBuffer;
@@ -16,14 +17,26 @@ export class BaseModel {
     protected indices;
     protected colors;
 
-    constructor(shaderProgram, gl: WebGLRenderingContext, pMatrix) {
+    protected x: number = 0;
+    protected y: number = 0;
+    protected z: number = 0;
+
+
+    constructor(shaderProgram: WebGLProgram, gl: WebGLRenderingContext, pMatrix) {
         this.shaderProgram = shaderProgram;
         this.gl = gl;
-        this.pMatrix = pMatrix;
+        this.projectionMatrix = pMatrix;
     }
 
     protected SetMatrixUniforms(): void {
-        this.gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
-        this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+        this.gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.projectionMatrix);
+        this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.modelMatrix);
+        this.gl.uniformMatrix4fv(this.shaderProgram.viewMatrixUniform, false, this.viewMatrix);
+    }
+
+    protected Update(x: number, y: number, z: number): void {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
     }
 }
