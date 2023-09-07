@@ -4,14 +4,10 @@ import * as vec3 from "./glmatrix/vec3.js"
 
 export class Plane extends BaseModel {
 
-    private x: number = 0;
-    private y: number = 0;
-    private z: number = 0;
-
     constructor(shaderProgram: object, gl: WebGLRenderingContext, pMatrix: object) {
         super(shaderProgram, gl, pMatrix);
         this.InitBuffers();
-        mat4.translate(this.mvMatrix, this.mvMatrix, vec3.fromValues(0, 0, -7.0))
+        mat4.translate(this.modelMatrix, this.modelMatrix, vec3.fromValues(0, 0, -7.0))
     }
 
     private InitBuffers(): void {
@@ -47,19 +43,13 @@ export class Plane extends BaseModel {
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
-    public Update(x: number, y: number, z: number): void {
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
-    }
-
     public Draw(projection_matrix: object, view_matrix: object): void {
 
-        // this.pMatrix = projection_matrix;
-        // this.mvMatrix = view_matrix;
+        this.projectionMatrix = projection_matrix;
+        this.viewMatrix = view_matrix;
 
-        mat4.translate(this.mvMatrix, view_matrix, [this.x, this.y, this.z]);
-        mat4.rotate(this.mvMatrix, view_matrix, 0.01, vec3.fromValues(1, 0, 0));
+        mat4.translate(this.modelMatrix, this.modelMatrix, [this.x, this.y, this.z]);
+        mat4.rotate(this.modelMatrix, this.modelMatrix, 0.01, vec3.fromValues(1, 0, 0));
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, this.gl.FLOAT,
@@ -71,6 +61,11 @@ export class Plane extends BaseModel {
 
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
         this.SetMatrixUniforms();
+
+        // this.gl.enable(this.gl..CULL_FACE);
+        this.gl.enable(this.gl.DEPTH_TEST);
+        this.gl.enable(this.gl.SCISSOR_TEST);
+
         this.gl.drawElements(this.gl.TRIANGLES, this.indices.length, this.gl.UNSIGNED_SHORT, 0);
     }
 }
