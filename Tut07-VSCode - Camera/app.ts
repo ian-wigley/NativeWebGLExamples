@@ -14,7 +14,10 @@ export class App {
     private plane: Plane;
 
     public Initialise(): void {
-        let canvas = document.getElementById("CanvasGL");
+        let canvas = <HTMLCanvasElement>document.getElementById("CanvasGL");
+        canvas.width = 800;
+        canvas.height = 800;
+
         this.InitGL(canvas)
         this.sp = new ShaderProgram(this.gl);
         this.shaderProgram = this.sp.GetShaderProgram();
@@ -61,7 +64,7 @@ export class App {
         }
     }
 
-    private InitGL(canvas: HTMLElement) {
+    private InitGL(canvas: HTMLElement): void {
         let names = ["webgl", "experimental-webgl", "webkit-3d", "mozwebgl"];
         for (const name of names) {
             try {
@@ -78,7 +81,6 @@ export class App {
     }
 
     private Update(): void {
-        this.plane.Update(0, 0, this.camera.z);
         this.camera.Update();
         this.DrawScene();
     }
