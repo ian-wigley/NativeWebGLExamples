@@ -1,14 +1,14 @@
 ﻿export class ShaderProgram {
 
     private gl: WebGLRenderingContext;
-    private shaderProgram;
+    private shaderProgram: any;
 
     constructor(gl: WebGLRenderingContext) {
         this.gl = gl;
         this.InitShaders();
     }
 
-    InitShaders(): void {
+    private InitShaders(): void {
         let fragmentShader = this.GetShader(this.gl, "shader-fs");
         let vertexShader = this.GetShader(this.gl, "shader-vs");
 
@@ -31,11 +31,12 @@
         this.shaderProgram.vertexColorAttribute = this.gl.getAttribLocation(this.shaderProgram, "aVertexColor");
         this.gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
 
-        this.shaderProgram.pMatrixUniform = this.gl.getUniformLocation(this.shaderProgram, "pMatrix");
-        this.shaderProgram.mvMatrixUniform = this.gl.getUniformLocation(this.shaderProgram, "mVMatrix");
+        this.shaderProgram.pMatrixUniform = this.gl.getUniformLocation(this.shaderProgram, "projectionMatrix");
+        this.shaderProgram.mvMatrixUniform = this.gl.getUniformLocation(this.shaderProgram, "modelMatrix");
+        this.shaderProgram.viewMatrixUniform = this.gl.getUniformLocation(this.shaderProgram, "viewMatrix");
     }
 
-    private GetShader(gl, id) {
+    private GetShader(gl: WebGLRenderingContext, id): object {
         let shaderScript = (<HTMLInputElement>document.getElementById(id));
         if (!shaderScript) {
             return null;
@@ -70,7 +71,7 @@
         return shader;
     }
 
-    public GetShaderProgram() {
+    public GetShaderProgram(): object {
         return this.shaderProgram;
     }
 }
