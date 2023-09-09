@@ -13,17 +13,17 @@ export class App {
     private cube: Cube;
     private plane: Plane;
 
-    public Initialise(): void {
+    public initialise(): void {
         let canvas = <HTMLCanvasElement>document.getElementById("CanvasGL");
         canvas.width = 800;
         canvas.height = 800;
 
-        this.InitGL(canvas)
+        this.initGL(canvas)
         this.sp = new ShaderProgram(this.gl);
-        this.shaderProgram = this.sp.GetShaderProgram();
+        this.shaderProgram = this.sp.getShaderProgram();
 
         this.camera = new Camera(this.gl);
-        let pMatrix = this.camera.Initialise();
+        let pMatrix = this.camera.initialise();
 
         this.plane = new Plane(this.shaderProgram, this.gl, pMatrix);
         this.cube = new Cube(this.shaderProgram, this.gl, pMatrix);
@@ -32,12 +32,12 @@ export class App {
         this.gl.enable(this.gl.DEPTH_TEST);
     }
 
-    public Run(): void {
-        this.AddHitListener(document.getElementById("CanvasGL"));
-        setInterval(() => this.Update(), 10);
+    public run(): void {
+        this.addHitListener(document.getElementById("CanvasGL"));
+        setInterval(() => this.update(), 10);
     }
 
-    private AddHitListener(element: HTMLElement): void {
+    private addHitListener(element: HTMLElement): void {
         window.addEventListener("keydown", (event) => {
             this.onKeyPress(event);
             return null;
@@ -52,19 +52,21 @@ export class App {
     private onKeyboardPress(event: KeyboardEvent): void {
         switch (event.code) {
             case "ArrowLeft":
+                this.camera.moveLeft(0.1);
                 break;
             case "ArrowUp":
-                this.camera.MoveForward(0.1);
+                this.camera.moveForward(0.1);
                 break;
             case "ArrowRight":
+                this.camera.moveLeft(-0.1);
                 break;
             case "ArrowDown":
-                this.camera.MoveForward(-0.1);
+                this.camera.moveForward(-0.1);
                 break;
         }
     }
 
-    private InitGL(canvas: HTMLElement): void {
+    private initGL(canvas: HTMLElement): void {
         let names = ["webgl", "experimental-webgl", "webkit-3d", "mozwebgl"];
         for (const name of names) {
             try {
@@ -80,14 +82,14 @@ export class App {
         }
     }
 
-    private Update(): void {
-        this.camera.Update();
-        this.DrawScene();
+    private update(): void {
+        this.camera.update();
+        this.drawScene();
     }
 
-    private DrawScene(): void {
+    private drawScene(): void {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        this.plane.Draw(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
-        this.cube.Draw(this.camera.get_projection_matrix(), this.camera.get_view_matrix());
+        this.plane.draw(this.camera.getProjectionMatrix(), this.camera.getViewMatrix());
+        this.cube.draw(this.camera.getProjectionMatrix(), this.camera.getViewMatrix());
     }
 }
