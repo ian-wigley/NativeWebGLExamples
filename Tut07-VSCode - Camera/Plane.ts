@@ -6,11 +6,11 @@ export class Plane extends BaseModel {
 
     constructor(shaderProgram: object, gl: WebGLRenderingContext, pMatrix: object) {
         super(shaderProgram, gl, pMatrix);
-        this.InitBuffers();
+        this.initBuffers();
         mat4.translate(this.modelMatrix, this.modelMatrix, vec3.fromValues(0, 0, -7.0))
     }
 
-    private InitBuffers(): void {
+    private initBuffers(): void {
         this.vertexPositionBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         this.vertices = [
@@ -43,10 +43,10 @@ export class Plane extends BaseModel {
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
-    public Draw(projection_matrix: object, view_matrix: object): void {
+    public draw(projectionMatrix: object, viewMatrix: object): void {
 
-        this.projectionMatrix = projection_matrix;
-        this.viewMatrix = view_matrix;
+        this.projectionMatrix = projectionMatrix;
+        this.viewMatrix = viewMatrix;
 
         mat4.translate(this.modelMatrix, this.modelMatrix, [this.x, this.y, this.z]);
         mat4.rotate(this.modelMatrix, this.modelMatrix, 0.01, vec3.fromValues(1, 0, 0));
@@ -60,9 +60,8 @@ export class Plane extends BaseModel {
             false, 0, 0);
 
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
-        this.SetMatrixUniforms();
+        this.setMatrixUniforms();
 
-        // this.gl.enable(this.gl..CULL_FACE);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.SCISSOR_TEST);
 
