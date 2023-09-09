@@ -10,7 +10,7 @@ export class Camera {
     private zNear: number = 0.1;
     private zFar: number = 100.0;
     private aspect: number = 0;
-    private movement_speed: number = 6;
+    private movementSpeed: number = 6;
     // In radians
     private fieldOfView: number = 45 * Math.PI / 180;
     private gl: WebGLRenderingContext;
@@ -24,7 +24,7 @@ export class Camera {
         this.gl = gl;
     }
 
-    public Initialise(): object {
+    public initialise(): object {
         this.aspect = this.gl.drawingBufferWidth / this.gl.drawingBufferHeight;
         mat4.perspective(this.projectionMatrix,
             this.fieldOfView,
@@ -34,19 +34,25 @@ export class Camera {
         return this.projectionMatrix;
     }
 
-    public MoveForward(value: number): void {
+    public moveForward(value: number): void {
         this.z = value;
-        let velocity = this.movement_speed * value
+        let velocity = this.movementSpeed * value
         this.position[2] += velocity;
     }
 
-    public Update(): void {
+    public moveLeft(value: number): void {
+        this.x = value;
+        let velocity = this.movementSpeed * value
+        this.position[0] += velocity;
+    }
+
+    public update(): void {
         this.x = 0;
         this.y = 0;
         this.z = 0;
     }
 
-    public get_view_matrix(): object {
+    public getViewMatrix(): object {
         let viewMatrix = mat4.create();
         let vectorial = vec3.fromValues(
             this.position[0] + this.front[0],
@@ -56,7 +62,7 @@ export class Camera {
         return mat4.lookAt(viewMatrix, this.position, vectorial, this.world_up);
     }
 
-    public get_projection_matrix(): object {
+    public getProjectionMatrix(): object {
         return this.projectionMatrix;
     }
 }
