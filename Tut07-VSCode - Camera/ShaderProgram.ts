@@ -5,12 +5,12 @@
 
     constructor(gl: WebGLRenderingContext) {
         this.gl = gl;
-        this.InitShaders();
+        this.initShaders();
     }
 
-    private InitShaders(): void {
-        let fragmentShader = this.GetShader(this.gl, "shader-fs");
-        let vertexShader = this.GetShader(this.gl, "shader-vs");
+    private initShaders(): void {
+        let fragmentShader = this.getShader(this.gl, "shader-fs");
+        let vertexShader = this.getShader(this.gl, "shader-vs");
 
         this.shaderProgram = this.gl.createProgram();
         this.gl.attachShader(this.shaderProgram, vertexShader);
@@ -36,7 +36,7 @@
         this.shaderProgram.viewMatrixUniform = this.gl.getUniformLocation(this.shaderProgram, "viewMatrix");
     }
 
-    private GetShader(gl: WebGLRenderingContext, id): object {
+    private getShader(gl: WebGLRenderingContext, id): object {
         let shaderScript = (<HTMLInputElement>document.getElementById(id));
         if (!shaderScript) {
             return null;
@@ -71,7 +71,7 @@
         return shader;
     }
 
-    public GetShaderProgram(): object {
+    public getShaderProgram(): object {
         return this.shaderProgram;
     }
 }
