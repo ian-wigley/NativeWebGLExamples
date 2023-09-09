@@ -28,13 +28,13 @@ export class BaseModel {
         this.projectionMatrix = pMatrix;
     }
 
-    protected SetMatrixUniforms(): void {
+    protected setMatrixUniforms(): void {
         this.gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.projectionMatrix);
         this.gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.modelMatrix);
         this.gl.uniformMatrix4fv(this.shaderProgram.viewMatrixUniform, false, this.viewMatrix);
     }
 
-    protected Update(x: number, y: number, z: number): void {
+    protected update(x: number, y: number, z: number): void {
         this.x = 0;
         this.y = 0;
         this.z = 0;
