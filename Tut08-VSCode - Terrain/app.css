@@ -1,0 +1,12 @@
+﻿body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+span {
+    font-style: italic;
+}
+
+canvas {
+    display: block;
+    border: none;
+}
